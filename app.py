@@ -109,6 +109,22 @@ with gr.Blocks(theme=gr.themes.Base()) as demo:
                 2. Total Day Minutes (High usage without proper plans leads to churn)
                 3. International Plan (Lack of cost-effective global plans)
             """)
+        
+        # TAB 3: EDA & Evaluation Metrics
+        with gr.TabItem("EDA & Evaluation Analytics"):
+            gr.Markdown("### 📊 Exploratory Data Analysis & System Evaluation")
+            gr.Markdown("Visual insights and evaluation metrics driving the predictive engine.")
+            
+            with gr.Row():
+                with gr.Column():
+                    gr.Markdown("#### Exploratory Data Analysis")
+                    gr.Image("visualizations/4_Correlation_Heatmap.png", show_label=False)
+                    gr.Image("visualizations/5_Service_Calls_EDA.png", show_label=False)
+                
+                with gr.Column():
+                    gr.Markdown("#### Model Evaluation (Cost-Sensitive)")
+                    gr.Image("visualizations/3_Confusion_Matrix.png", show_label=False)
+                    gr.Image("visualizations/2_Risk_Distribution.png", show_label=False)
             
     # Connect logic
     predict_btn.click(
