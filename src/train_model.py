@@ -33,7 +33,8 @@ def train_pipeline():
         'Total_day_calls', 'Total_day_charge', 'Total_eve_minutes', 
         'Total_eve_calls', 'Total_eve_charge', 'Total_night_minutes', 
         'Total_night_calls', 'Total_night_charge', 'Total_intl_minutes', 
-        'Total_intl_calls', 'Total_intl_charge', 'Customer_service_calls'
+        'Total_intl_calls', 'Total_intl_charge', 'Customer_service_calls',
+        'Service_Intensity', 'Day_Cost_Per_Min', 'Support_Friction'
     ]
 
     column_transformer = ColumnTransformer(

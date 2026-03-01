@@ -2,34 +2,37 @@ import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 
 class TelecomDataCleaner(BaseEstimator, TransformerMixin):
-    """
-    Custom Scikit-Learn Transformer to clean the Kaggle Telecom dataset.
-    This ensures both training data and live UI data are processed identically.
-    """
     def __init__(self):
-        # We define the columns we want to drop here
-        self.cols_to_drop = ['State', 'Area_code']
+        self.cols_to_drop = ['State', 'Area code', 'Phone number']
 
     def fit(self, X, y=None):
-        # Fit does nothing here, but is required by Scikit-Learn
         return self
 
     def transform(self, X):
-        # Always work on a copy to avoid modifying the original data
-        X_copy = X.copy()
+        X = X.copy()
         
-        # 1. Clean Column Names (replace spaces with underscores)
-        if isinstance(X_copy, pd.DataFrame):
-            X_copy.columns = X_copy.columns.str.replace(' ', '_')
-            
-            # 2. Drop unnecessary columns (if they exist in the input)
-            existing_cols_to_drop = [c for c in self.cols_to_drop if c in X_copy.columns]
-            X_copy = X_copy.drop(columns=existing_cols_to_drop)
-            
-        return X_copy
-    
+        # --- FEATURE ENGINEERING ---
+        # 1. Service Intensity: Total calls / Account Length
+        # (High intensity often correlates with high engagement OR high friction)
+        X['Service_Intensity'] = (X['Total day calls'] + X['Total eve calls']) / (X['Account length'] + 1)
+        
+        # 2. Cost Per Minute: Total Charge / Total Minutes
+        # (Helps identify if a customer feels overcharged)
+        X['Day_Cost_Per_Min'] = X['Total day charge'] / (X['Total day minutes'] + 1)
+        
+        # 3. Support Dependency: Customer Service Calls / Total Calls
+        # (High ratio is a massive churn indicator)
+        X['Support_Friction'] = X['Customer service calls'] / (X['Total day calls'] + 1)
+
+        # Drop unnecessary columns
+        X = X.drop(columns=self.cols_to_drop, errors='ignore')
+        
+        # Standardize column names for the model
+        X.columns = [c.replace(' ', '_') for c in X.columns]
+        return X
+
     def get_feature_names_out(self, input_features=None):
-        """Allows the pipeline to track feature names for Explainable AI (XAI)."""
-        pass_through_features = [f for f in input_features if f not in self.cols_to_drop]
-        # Convert spaces to underscores to match the transform logic
-        return [f.replace(' ', '_') for f in pass_through_features]
+        # Update names to match the engineered features
+        base_features = [f for f in input_features if f not in self.cols_to_drop]
+        engineered = ['Service_Intensity', 'Day_Cost_Per_Min', 'Support_Friction']
+        return [f.replace(' ', '_') for f in base_features] + engineered
