@@ -33,13 +33,40 @@ pip install -r requirements.txt
 ```
 
 **3. Data Preparation**
-[cite_start]This project relies on real-world behavioral data from the [Telecom Churn Dataset on Kaggle](https://www.kaggle.com/datasets/mnassrib/telecom-churn-datasets) to identify customers at risk[cite: 84].
+This project relies on real-world behavioral data from the [Telecom Churn Dataset on Kaggle](https://www.kaggle.com/datasets/mnassrib/telecom-churn-datasets) to identify customers at risk.
 * Download the primary training dataset (typically named `churn-bigml-80.csv`).
 * Rename the downloaded file to exactly `telecom_churn.csv`.
 * Move this file into the `data/raw/` directory of this project.
 
 **4. Train the Model**
-Execute the training pipeline. [cite_start]This script will automatically load the raw data, apply our custom Scikit-Learn preprocessing steps [cite: 72, 91][cite_start], train the Logistic Regression model [cite: 70, 91][cite_start], and evaluate its performance[cite: 92, 102].
+Execute the training pipeline.This script will automatically load the raw data, apply our custom Scikit-Learn preprocessing steps, train the Logistic Regression model, and evaluate its performance.
 ```bash
 python src/train_model.py
+```
+* **Success Criteria:** Upon successful execution, a serialized model artifact named `churn_model.pkl` will be generated inside the `models/` directory.
+
+**5. Launch the Web Interface**
+Start the local Gradio server to interact with the prediction model via a web UI.
+
+```bash
+python app.py
+```
+* **Access:** Open the provided local network URL (typically http://127.0.0.1:78600) in your web browser to test the predictor.
+* **Input:** Provide customer bhavioral metrics such as day minutes and service calls.
+* **Output:** The system returns a churn probability and classification (High/Low Risk).
+---
+
+## 🌐 Live Demo & Deployment
+This application is publicly deployed to fulfill the mandatory project hosting requirements.
+**Hosted Link:**[Link](https://huggingface.co/spaces/pranav-singh-developer-1/telecom-churn-predictor)
+
+**📊 Mid-Sem Evaluation Components**
+This milestone addresses the following rubric criteria:
+* **Technical Implementation:** Logistic Regression and Scikit-Learn pipelines.
+* **Code Quality:** Modular structure and frequent Git commits.
+* **Documentation:** Comprehensive setup and usage instructions.
+* **UI/UX:** Intuitive Streamlit/Gradio interface for real-time inference.
+
+
+
 
