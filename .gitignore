@@ -1,0 +1,76 @@
+# ===============================
+# 1️⃣ Data (NEVER push raw data)
+# ===============================
+data/raw/*
+data/processed/*
+
+# Keep folder structure but ignore files
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ===============================
+# 2️⃣ Trained Models
+# ===============================
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/*.pt
+models/*.pth
+models/*.onnx
+
+# Keep folder
+!models/.gitkeep
+
+# ===============================
+# 3️⃣ Python Virtual Environment
+# ===============================
+venv/
+.venv/
+env/
+ENV/
+
+# ===============================
+# 4️⃣ Python Cache Files
+# ===============================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
+.ipynb_checkpoints/
+
+# ===============================
+# 5️⃣ Jupyter Notebooks (optional)
+# ===============================
+*.ipynb
+
+# ===============================
+# 6️⃣ Environment Variables
+# ===============================
+.env
+.env.local
+
+# ===============================
+# 7️⃣ IDE / Editor Files
+# ===============================
+.vscode/
+.idea/
+*.swp
+
+# ===============================
+# 8️⃣ OS Files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# 9️⃣ Logs
+# ===============================
+*.log
+
+# ===============================
+# 🔟 Build / Distribution
+# ===============================
+dist/
+build/
+*.egg-info/
