@@ -27,3 +27,9 @@ class TelecomDataCleaner(BaseEstimator, TransformerMixin):
             X_copy = X_copy.drop(columns=existing_cols_to_drop)
             
         return X_copy
+    
+    def get_feature_names_out(self, input_features=None):
+        """Allows the pipeline to track feature names for Explainable AI (XAI)."""
+        pass_through_features = [f for f in input_features if f not in self.cols_to_drop]
+        # Convert spaces to underscores to match the transform logic
+        return [f.replace(' ', '_') for f in pass_through_features]

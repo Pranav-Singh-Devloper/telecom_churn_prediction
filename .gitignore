@@ -7,6 +7,7 @@ data/processed/*
 # Keep folder structure but ignore files
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!models/churn_model.pkl
 
 # ===============================
 # 2️⃣ Trained Models
