@@ -86,7 +86,7 @@ venv\Scripts\activate      # On Windows
 
 ### 2️⃣ Data Preparation
 
-1. Download the Telecom Churn dataset.
+1. Download the Telecom Churn [dataset](https://www.kaggle.com/datasets/mnassrib/telecom-churn-datasets?resource=download&select=churn-bigml-80.csv).
 2. Rename the dataset file to:
 
 ```
